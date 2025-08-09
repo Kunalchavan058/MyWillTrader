@@ -1,0 +1,4 @@
+.table-wrap{ border-radius:12px; padding:8px; background:var(--card); border:1px solid var(--stroke); box-shadow: var(--shadow-strong) }
+#stateTable{ width:100%; border-collapse:collapse; font-size:13px }
+#stateTable th,#stateTable td{ padding:8px; text-align:left; border-bottom:1px dashed color-mix(in oklab,var(--stroke) 80%, transparent) }
+#stateTable tr:last-child td{ border-bottom:none }

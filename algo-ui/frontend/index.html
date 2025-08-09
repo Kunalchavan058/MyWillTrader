@@ -4,8 +4,17 @@
   <meta charset="UTF-8" />
   <title>TradePulse — MyWill Algo Trading</title>
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <!-- NOTE: /static/* matches app.mount("/static", StaticFiles(directory=FRONTEND_DIR)) -->
-  <link rel="stylesheet" href="/static/styles.css" />
+
+  <!-- Modular CSS (order matters). /static maps to your frontend folder -->
+  <link rel="stylesheet" href="/static/css/tokens.css" />
+  <link rel="stylesheet" href="/static/css/dark.css" />
+  <link rel="stylesheet" href="/static/css/base.css" />
+  <link rel="stylesheet" href="/static/css/layout.css" />
+  <link rel="stylesheet" href="/static/css/form.css" />
+  <link rel="stylesheet" href="/static/css/buttons.css" />
+  <link rel="stylesheet" href="/static/css/dropdown.css" />
+  <link rel="stylesheet" href="/static/css/selected.css" />
+  <link rel="stylesheet" href="/static/css/table.css" />
 </head>
 <body>
   <div class="page-wrap">
@@ -67,12 +76,11 @@
           </div>
         </div>
 
-        <!-- Search + Add/Save -->
+        <!-- Search + Save -->
         <div class="controls" id="watchlistControls">
           <input id="search" type="text" autocomplete="off" placeholder="Select a symbol" />
           <div class="buttons">
-            <button id="addBtn"  class="btn outline" type="button">Add</button>
-            <button id="save"    class="btn primary" type="button">✓ Save</button>
+            <button id="save" class="btn primary" type="button">✓ Save</button>
           </div>
 
           <!-- Dropdown suggestions -->
@@ -109,7 +117,7 @@
     </section>
   </div>
 
-  <!-- JS must also be under /static -->
-  <script src="/static/app.js"></script>
+  <!-- JS entry (served from frontend root mounted at /static) -->
+  <script type="module" src="/static/app.js"></script>
 </body>
 </html>

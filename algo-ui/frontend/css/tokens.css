@@ -1,0 +1,12 @@
+:root{
+  --bg1:#f6fdf9; --bg2:#e9fbf2; --bg3:#dcfce7; --glow:#b7f5d1; --vignette:rgba(0,0,0,.10);
+  --card:#ffffff; --card2:#f7fbf9; --stroke:#d6ece2; --stroke-strong:#cde6dc;
+  --text:#0f172a; --muted:#567187;
+  --mint:#10b981; --mint-2:#6ee7b7;
+  --purple:#8b5cf6; --cyan:#22d3ee;
+  --success:#16a34a; --danger:#ef4444;
+  --inner: inset 0 1px 0 rgba(255,255,255,.85);
+  --shadow-card: 0 16px 40px rgba(0,0,0,.08);
+  --shadow-strong: 0 26px 64px rgba(16,185,129,.18);
+  --border-grad: linear-gradient(180deg,#fff,#e9f6ef);
+}

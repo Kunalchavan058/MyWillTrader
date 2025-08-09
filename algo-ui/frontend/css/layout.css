@@ -1,0 +1,30 @@
+.hero{ text-align:center; margin:8px 0 18px }
+.hero-logo{ width:120px; height:120px; object-fit:contain; filter:drop-shadow(0 12px 28px rgba(0,0,0,.2)) }
+.hero-title{
+  margin:8px 0 10px; font-size:48px; font-weight:800; letter-spacing:.4px;
+  background: linear-gradient(180deg, var(--mint), color-mix(in oklab, var(--mint-2) 65%, var(--mint)));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:start; margin-bottom:18px }
+.card{
+  position:relative; padding:14px; border-radius:18px;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--card) 92%, transparent), var(--card2));
+  box-shadow: var(--shadow-card);
+}
+.card::before{
+  content:""; position:absolute; inset:0; border-radius:18px; padding:1px;
+  background: var(--border-grad);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude; pointer-events:none;
+}
+.card-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px; position:relative; z-index:70 }
+.card-head h2{ margin:0; font-size:16px; font-weight:800; letter-spacing:.2px }
+.head-controls{ display:flex; align-items:center; gap:10px; position:relative; z-index:70 }
+.card.wide{ margin-top:6px }
+
+@media (max-width: 940px){
+  .grid-2{ grid-template-columns:1fr }
+  .page-wrap{ padding:0 12px }
+  .hero-title{ font-size:40px }
+  .hero-logo{ width:100px; height:100px }
+}

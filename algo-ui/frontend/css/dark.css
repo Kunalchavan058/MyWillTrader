@@ -1,0 +1,11 @@
+html[data-theme="dark"]{
+  --bg1:#0b0f14; --bg2:#0e1420; --bg3:#0b0f14; --glow:#17344c; --vignette:rgba(0,0,0,.55);
+  --card:#141827; --card2:#101625; --stroke:#243243; --stroke-strong:#2b3a4e;
+  --text:#e8eef8; --muted:#9aa9bd;
+  --mint:#22c55e; --mint-2:#22d3ee; --purple:#8b5cf6; --cyan:#22d3ee;
+  --success:#22c55e; --danger:#ef4444;
+  --inner: inset 0 1px 0 rgba(255,255,255,.08);
+  --shadow-card: 0 16px 40px rgba(0,0,0,.38);
+  --shadow-strong: 0 26px 64px rgba(139,92,246,.30);
+  --border-grad: linear-gradient(180deg,#1e2437,#101523);
+}

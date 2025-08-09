@@ -1,0 +1,10 @@
+.list{
+  position:absolute; display:none; top:calc(100% + 6px); left:0; width:100%;
+  max-height:280px; overflow:auto; z-index:40;
+  background:var(--card); border:1px solid var(--stroke); border-radius:12px; box-shadow: var(--shadow-strong);
+}
+.list.open{ display:block }
+.list .row{ display:flex; align-items:center; gap:10px; padding:10px 12px; border-bottom:1px dashed color-mix(in oklab,var(--stroke) 80%, transparent); cursor:pointer }
+.list .row:last-child{ border-bottom:none }
+.list .row:hover{ background: color-mix(in oklab, var(--mint-2) 12%, var(--card)) }
+.symbol{ font-weight:700; letter-spacing:.3px }
