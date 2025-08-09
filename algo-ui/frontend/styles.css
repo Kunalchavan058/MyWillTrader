@@ -1,0 +1,242 @@
+/* =========================================================
+   TradePulse — polished light/dark UI
+   - Running/Stopped live on the buttons
+   - One "Run after hours" toggle in header
+   - Stylish countdown badge
+   - Dropdown + selected rows
+   ========================================================= */
+
+/* ---------- Theme tokens ---------- */
+:root{
+  --bg1:#f6fdf9; --bg2:#e9fbf2; --bg3:#dcfce7; --glow:#b7f5d1; --vignette:rgba(0,0,0,.10);
+
+  --card:#ffffff; --card2:#f7fbf9; --stroke:#d6ece2; --stroke-strong:#cde6dc;
+
+  --text:#0f172a; --muted:#567187;
+
+  --mint:#10b981; --mint-2:#6ee7b7;
+  --purple:#8b5cf6; --cyan:#22d3ee;
+
+  --success:#16a34a; --danger:#ef4444;
+
+  --inner: inset 0 1px 0 rgba(255,255,255,.85);
+  --shadow-card: 0 16px 40px rgba(0,0,0,.08);
+  --shadow-strong: 0 26px 64px rgba(16,185,129,.18);
+
+  --border-grad: linear-gradient(180deg,#fff,#e9f6ef);
+}
+
+html[data-theme="dark"]{
+  --bg1:#0b0f14; --bg2:#0e1420; --bg3:#0b0f14; --glow:#17344c; --vignette:rgba(0,0,0,.55);
+
+  --card:#141827; --card2:#101625; --stroke:#243243; --stroke-strong:#2b3a4e;
+
+  --text:#e8eef8; --muted:#9aa9bd;
+
+  --mint:#22c55e; --mint-2:#22d3ee;
+  --purple:#8b5cf6; --cyan:#22d3ee;
+
+  --success:#22c55e; --danger:#ef4444;
+
+  --inner: inset 0 1px 0 rgba(255,255,255,.08);
+  --shadow-card: 0 16px 40px rgba(0,0,0,.38);
+  --shadow-strong: 0 26px 64px rgba(139,92,246,.30);
+
+  --border-grad: linear-gradient(180deg,#1e2437,#101523);
+}
+
+/* ---------- Background ---------- */
+html,body{height:100%} *{box-sizing:border-box}
+body{
+  margin:0; color:var(--text);
+  font:14px/1.55 system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+  background:
+    radial-gradient(1200px 650px at 92% 0%, var(--glow) 0%, transparent 65%),
+    radial-gradient(1400px 900px at 50% -12%, var(--bg2) 0%, transparent 65%),
+    linear-gradient(180deg, var(--bg1) 0%, var(--bg2) 50%, var(--bg3) 100%);
+  background-attachment: fixed;
+}
+body::after{content:"";position:fixed;inset:0;pointer-events:none;background:radial-gradient(1000px 600px at 50% 0%,transparent 60%,var(--vignette) 100%)}
+
+.page-wrap{ max-width:1100px; margin:28px auto 48px; padding:0 16px }
+
+/* ---------- Hero ---------- */
+.hero{ text-align:center; margin:8px 0 18px }
+.hero-logo{ width:120px; height:120px; object-fit:contain; filter:drop-shadow(0 12px 28px rgba(0,0,0,.2)) }
+.hero-title{
+  margin:8px 0 10px; font-size:48px; font-weight:800; letter-spacing:.4px;
+  background: linear-gradient(180deg, var(--mint), color-mix(in oklab, var(--mint-2) 65%, var(--mint)));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+
+/* ---------- Grid & Cards ---------- */
+.grid-2{ display:grid; grid-template-columns:1fr 1fr; gap:18px; align-items:start; margin-bottom:18px }
+
+.card{
+  position:relative; padding:14px; border-radius:18px;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--card) 92%, transparent), var(--card2));
+  box-shadow: var(--shadow-card);
+}
+.card::before{
+  content:""; position:absolute; inset:0; border-radius:18px; padding:1px;
+  background: var(--border-grad);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  pointer-events:none; /* important */
+}
+.card-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px; position:relative; z-index:70 }
+.card-head h2{ margin:0; font-size:16px; font-weight:800; letter-spacing:.2px }
+.head-controls{ display:flex; align-items:center; gap:10px; position:relative; z-index:70 }
+.card.wide{ margin-top:6px }
+
+/* ---------- Form ---------- */
+.form{ display:grid; gap:10px }
+.form label{ display:grid; gap:6px; font-size:13px }
+.form input{
+  background:#fff; border:1px solid var(--stroke); color:var(--text);
+  padding:11px 12px; border-radius:12px; outline:none; transition:border .2s, box-shadow .2s, background .2s;
+  box-shadow: var(--inner);
+}
+html[data-theme="dark"] .form input{ background:#0e141c }
+.form input:focus{ border-color: color-mix(in oklab, var(--mint) 55%, transparent); box-shadow: 0 0 0 4px color-mix(in oklab, var(--mint) 22%, transparent), var(--inner) }
+
+/* ---------- Switch ---------- */
+.switch-row{ display:inline-flex; align-items:center; gap:8px; color:var(--muted) }
+.switch-row input[type="checkbox"]{
+  appearance:none; width:44px;height:26px; position:relative; border-radius:999px;
+  background:#eaf5f0; border:1px solid var(--stroke); cursor:pointer; transition:.2s; box-shadow: inset 0 2px 6px rgba(0,0,0,.05);
+}
+.switch-row input[type="checkbox"]::after{ content:""; position:absolute; left:3px; top:3px; width:20px; height:20px; border-radius:50%; background:#ffffff; box-shadow:0 2px 4px rgba(0,0,0,.18); transition:transform .18s }
+.switch-row input[type="checkbox"]:checked{ background:linear-gradient(180deg, color-mix(in oklab, var(--mint) 28%, #dff8ee), #dff8ee); border-color: color-mix(in oklab, var(--mint) 42%, var(--stroke)) }
+.switch-row input[type="checkbox"]:checked::after{ transform:translateX(18px) }
+.switch-row.compact{ gap:6px }
+
+/* ---------- Controls + Dropdown ---------- */
+.controls{ position:relative; display:grid; grid-template-columns:1fr auto; gap:10px; margin:6px 0 10px; z-index:60 }
+.controls input{ background:#fff; border:1px solid var(--stroke); color:var(--text); padding:11px 12px; border-radius:12px; outline:none; box-shadow: var(--inner) }
+html[data-theme="dark"] .controls input{ background:#0e141c }
+.buttons{ display:flex; gap:8px; flex-wrap:wrap }
+
+/* Suggestions dropdown */
+.list{
+  position:absolute; display:none; top:calc(100% + 6px); left:0; width:100%;
+  max-height:280px; overflow:auto; z-index:40; /* below head-controls */
+  background:var(--card); border:1px solid var(--stroke); border-radius:12px; box-shadow: var(--shadow-strong);
+}
+.list.open{ display:block }
+.list .row{ display:flex; align-items:center; gap:10px; padding:10px 12px; border-bottom:1px dashed color-mix(in oklab,var(--stroke) 80%, transparent); cursor:pointer }
+.list .row:last-child{ border-bottom:none }
+.list .row:hover{ background: color-mix(in oklab, var(--mint-2) 12%, var(--card)) }
+.symbol{ font-weight:700; letter-spacing:.3px }
+
+/* ---------- Selected rows ---------- */
+.selected-list{ display:grid; gap:10px; margin-top:6px }
+.selected-item{
+  display:flex; align-items:center; gap:10px;
+  padding:12px 14px; border-radius:14px;
+  background: linear-gradient(180deg, color-mix(in oklab, var(--mint-2) 22%, #fff), color-mix(in oklab, var(--mint-2) 10%, #fff));
+  border: 1px solid color-mix(in oklab, var(--mint-2) 28%, var(--stroke));
+  box-shadow: 0 10px 24px rgba(16,185,129,.12);
+}
+html[data-theme="dark"] .selected-item{ background:linear-gradient(180deg, rgba(76,201,240,.08), rgba(34,197,94,.08)); border-color:#274a3c; box-shadow:none }
+.selected-item .dot{ width:10px; height:10px; border-radius:999px; background: var(--success); box-shadow:0 0 0 3px color-mix(in oklab, var(--success) 25%, transparent) inset }
+.selected-item .ticker{ font-weight:800; letter-spacing:.4px }
+.selected-item .btn.outline{ margin-left:auto }
+
+/* ---------- Buttons ---------- */
+.btn{
+  appearance:none; border:1px solid var(--stroke-strong);
+  background: linear-gradient(180deg, #f8fbfa, #eef3f1);
+  color: var(--text); padding: 10px 14px; border-radius: 14px;
+  cursor:pointer; transition: transform .06s, filter .2s, box-shadow .25s, border-color .2s;
+  box-shadow: var(--inner);
+}
+.btn:hover{ filter:saturate(1.08) }
+.btn:active{ transform:translateY(1px) }
+.btn:disabled{ opacity:.55; cursor:not-allowed }
+
+/* Start (default) */
+.btn.start{
+  border: none; font-weight: 800; color: #fff;
+  display: inline-flex; align-items: center; gap: 10px;
+  background: linear-gradient(135deg, var(--purple) 0%, var(--mint-2) 100%);
+  box-shadow:
+    0 14px 36px color-mix(in oklab, var(--purple) 34%, transparent),
+    0 6px 16px color-mix(in oklab, var(--mint-2) 28%, transparent),
+    inset 0 1px 0 rgba(255,255,255,.25);
+  position: relative; overflow: hidden;
+}
+.btn.start .play{
+  width:0; height:0; border-left:10px solid #ffffff; border-top:6px solid transparent; border-bottom:6px solid transparent; display:inline-block;
+}
+/* Running state */
+.btn.start.is-on{
+  color:#083b2a;
+  background: linear-gradient(135deg, #16e2a1 0%, #10b981 45%, #34d399 100%);
+  box-shadow: 0 18px 40px rgba(16,185,129,.35), inset 0 1px 0 rgba(255,255,255,.35);
+}
+.btn.start.is-on::after{
+  content:""; position:absolute; inset:-30% -60%;
+  background:linear-gradient(120deg, rgba(255,255,255,0) 45%, rgba(255,255,255,.35) 50%, rgba(255,255,255,0) 55%);
+  transform:translateX(-60%); animation:btn-sheen 2.2s linear infinite; pointer-events:none;
+}
+@keyframes btn-sheen { to { transform: translateX(60%); } }
+.btn.start.is-on .play{
+  width:10px; height:10px; border:none; background:#22c55e; border-radius:999px; position:relative;
+}
+.btn.start.is-on .play::after{
+  content:""; position:absolute; inset:-4px; border-radius:999px; border:2px solid rgba(34,197,94,.45); animation:pulse 1.6s ease-out infinite;
+}
+@keyframes pulse { from{ transform:scale(.7); opacity:1 } to{ transform:scale(1.5); opacity:0 } }
+
+/* Stop */
+.btn.stop{
+  background: linear-gradient(180deg, #ffffff, #f0f3f1);
+  border:1px solid var(--stroke-strong); color:#0f172a; font-weight:800;
+  display:flex; align-items:center; gap:8px;
+}
+.btn.stop .dot{ width:10px; height:10px; border-radius:999px; background:#ff6565; display:inline-block }
+.btn.stop.running{ background: linear-gradient(180deg, #fafafa, #eceff1); }
+
+/* Theme */
+.btn.theme{
+  width:40px; height:40px; padding:0;
+  border-radius:12px; font-size:18px; line-height:1;
+  background: linear-gradient(180deg, #fff, #f2f6f4);
+}
+html[data-theme="dark"] .btn.theme{ background: linear-gradient(180deg, #171c31, #0f1426); border-color:#2b3a4e }
+
+/* Outline (Add) & Primary (Save) */
+.btn.outline{
+  background: linear-gradient(180deg, #fefefe, #f3f6f4);
+  border:2px solid #111; color:#111; font-weight:700;
+  box-shadow: 0 2px 0 rgba(17,17,17,.08), var(--inner);
+}
+html[data-theme="dark"] .btn.outline{ border-color:#2b3a4e; color:var(--text); background: linear-gradient(180deg, #171c31, #0f1426) }
+.btn.primary{
+  border:none; font-weight:800; color:#0a0a0a;
+  background: linear-gradient(135deg, var(--mint), var(--mint-2));
+  box-shadow: 0 14px 36px color-mix(in oklab, var(--mint) 34%, transparent), 0 6px 16px color-mix(in oklab, var(--mint-2) 28%, transparent), var(--inner);
+}
+
+/* Countdown badge */
+.countdown{
+  display:inline-flex; align-items:center; gap:8px; padding:8px 12px; border-radius:12px; font-weight:800;
+  background: linear-gradient(135deg, rgba(139,92,246,.15), rgba(34,211,238,.18));
+  border: 1px solid color-mix(in oklab, var(--cyan) 35%, var(--stroke));
+  box-shadow: 0 8px 20px rgba(139,92,246,.20);
+}
+
+/* Table */
+.table-wrap{ border-radius:12px; padding:8px; background:var(--card); border:1px solid var(--stroke); box-shadow: var(--shadow-strong) }
+#stateTable{ width:100%; border-collapse:collapse; font-size:13px }
+#stateTable th,#stateTable td{ padding:8px; text-align:left; border-bottom:1px dashed color-mix(in oklab,var(--stroke) 80%, transparent) }
+#stateTable tr:last-child td{ border-bottom:none }
+
+/* Responsive */
+@media (max-width: 940px){
+  .grid-2{ grid-template-columns:1fr }
+  .page-wrap{ padding:0 12px }
+  .hero-title{ font-size:40px }
+  .hero-logo{ width:100px; height:100px }
+}

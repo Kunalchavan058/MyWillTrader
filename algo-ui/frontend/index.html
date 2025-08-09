@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <title>TradePulse — MyWill Algo Trading</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- NOTE: /static/* matches app.mount("/static", StaticFiles(directory=FRONTEND_DIR)) -->
+  <link rel="stylesheet" href="/static/styles.css" />
+</head>
+<body>
+  <div class="page-wrap">
+    <!-- Hero -->
+    <header class="hero">
+      <img src="/static/logo.png" class="hero-logo" alt="MyWill" />
+      <h1 class="hero-title">TradePulse</h1>
+    </header>
+
+    <!-- Top grid -->
+    <section class="grid-2">
+      <!-- Card 1: Bot settings -->
+      <div class="card">
+        <div class="card-head">
+          <h2>Bot settings</h2>
+          <button id="settingsSaveBtn" class="btn ghost" type="button">✔ Save</button>
+        </div>
+
+        <div class="form">
+          <label>
+            <span>Capital per trade (₹)</span>
+            <input id="capitalInput" type="number" min="0" step="1" placeholder="100" />
+          </label>
+
+          <label>
+            <span>Bar interval (minutes)</span>
+            <input id="intervalInput" type="number" min="1" step="1" placeholder="15" />
+          </label>
+
+          <!-- Paper trading -->
+          <label class="switch-row">
+            <input type="checkbox" id="paperToggle" />
+            <span>Paper trading (no live orders)</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Card 2: Watchlist -->
+      <div class="card" id="watchlistCard">
+        <div class="card-head">
+          <h2>Watchlist</h2>
+
+          <div class="head-controls">
+            <button id="startBot" class="btn start" type="button">
+              <span class="play"></span><span class="lbl">Start</span>
+            </button>
+
+            <button id="stopBot" class="btn stop" type="button">
+              <span class="dot"></span><span class="lbl">Stopped</span>
+            </button>
+
+            <button id="themeToggle" class="btn theme" type="button" title="Toggle theme">🌙</button>
+
+            <!-- Off-hours toggle (maps to test_mode) -->
+            <label class="switch-row compact" title="Run after hours">
+              <input type="checkbox" id="afterHoursToggleHead" />
+              <span>Run after hours</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Search + Add/Save -->
+        <div class="controls" id="watchlistControls">
+          <input id="search" type="text" autocomplete="off" placeholder="Select a symbol" />
+          <div class="buttons">
+            <button id="addBtn"  class="btn outline" type="button">Add</button>
+            <button id="save"    class="btn primary" type="button">✓ Save</button>
+          </div>
+
+          <!-- Dropdown suggestions -->
+          <section class="list" id="list" aria-label="Symbol suggestions"></section>
+        </div>
+
+        <!-- Selected as rows -->
+        <div id="selectedList" class="selected-list" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <!-- Card 3: Positions + countdown -->
+    <section class="card wide">
+      <div class="card-head">
+        <div class="left">
+          <h2>Live Positions &amp; P&amp;L</h2>
+          <div id="stateTs" class="ts">Last update: -</div>
+        </div>
+        <div class="right">
+          <span id="countdown" class="countdown" title="Time to next candle">⏳ 00:00</span>
+        </div>
+      </div>
+
+      <div class="table-wrap">
+        <table id="stateTable">
+          <thead>
+            <tr>
+              <th>Ticker</th><th>State</th><th>Qty</th><th>Entry</th><th>Last</th><th>P&amp;L %</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <!-- JS must also be under /static -->
+  <script src="/static/app.js"></script>
+</body>
+</html>
